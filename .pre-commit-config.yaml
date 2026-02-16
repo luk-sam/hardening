@@ -1,0 +1,8 @@
+repos:
+  - repo: local
+    hooks:
+      - id: block-sensitive-files
+        name: Block sensitive cert/keystore files
+        entry: bash -c 'git diff --cached --name-only --diff-filter=ACMR | grep -Eiq "\.(pem|crt|key|p12|jks|keystore)$" && echo "Blocked sensitive file extension." && exit 1 || exit 0'
+        language: system
+        pass_filenames: false
